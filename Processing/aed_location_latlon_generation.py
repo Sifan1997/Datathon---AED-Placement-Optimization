@@ -6,6 +6,12 @@ aed_location_path = '../Data2024-csv/aed_for_googlemap.csv'
 output = '../get_aed_location_latlon/'
 gmaps = googlemaps.Client(key='addyourgmapkey')
 def get_latlon_from_googlemap_aedloc(input_path,output_path):
+    '''
+    Get latitude and longitude data from google map API
+    :param input_path:
+    :param output_path:
+    :return: A pd dataframe with two columns (latitude and longitude)
+    '''
     aed_location = pd.read_csv(input_path,encoding='utf-8')
     #Preprocessing the data
     #Drop records with NAN id
@@ -37,7 +43,7 @@ def get_latlon_from_googlemap_aedloc(input_path,output_path):
             temp_lon = geocode_result[0]['geometry']['location']['lng']
             lat.append(temp_lat)
             lon.append(temp_lon)
-            time.sleep(0.05)
+            time.sleep(0.05)  #limit the retreiving speed
         except:
             print('Fail to get location data')
             lat.append('NAN')
